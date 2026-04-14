@@ -1,0 +1,8 @@
+{
+  "name": "scientific-review-swarm",
+  "description": "A peer swarm of 15 scientific-domain agents that review defense-aerospace projects from their specialized scientific perspectives, feeding structured findings into G1-G4 gate processes.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Tao Conrad"
+  }
+}

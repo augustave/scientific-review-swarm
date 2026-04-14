@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/taoconrad/Dev/SKILLS/scientific-review-swarm/docs", "-l", "3847"],
+      "port": 3847
+    }
+  ]
+}
