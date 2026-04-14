@@ -9,84 +9,226 @@
 :root{
   --bg:#0a0a0a;
   --gap:2px;
+  --max:1200px;
 }
+html,body{background:var(--bg)}
 body{
-  background:var(--bg);
   font-family:'SF Mono','Fira Code','Courier New',monospace;
   color:#fff;
   -webkit-font-smoothing:antialiased;
 }
 
-/* HEADER */
-.header{
-  padding:32px 24px 20px;
-  max-width:1200px;
+/* ── SITE HEADER ─────────────────────────────────── */
+.site-header{
+  max-width:var(--max);
   margin:0 auto;
+  padding:40px 24px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:12px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
-.header h1{
-  font-size:clamp(1.4rem,4vw,2.4rem);
+.site-header h1{
+  font-size:clamp(1.3rem,3.2vw,2rem);
   font-weight:800;
-  letter-spacing:0.18em;
+  letter-spacing:0.2em;
   text-transform:uppercase;
-  line-height:1.1;
+  line-height:1;
 }
-.header .subtitle{
-  font-size:0.7rem;
-  color:rgba(255,255,255,0.4);
-  text-transform:uppercase;
-  letter-spacing:0.12em;
-  margin-top:6px;
-}
-.header .badge{
+.site-header .badge{
   display:inline-block;
   background:#D50000;
   color:#fff;
   font-size:0.55rem;
   font-weight:800;
-  padding:2px 8px;
-  letter-spacing:0.1em;
+  padding:3px 8px;
+  letter-spacing:0.12em;
   margin-left:8px;
   vertical-align:middle;
 }
-.filters{
-  display:flex;
-  gap:6px;
-  margin-top:16px;
-  flex-wrap:wrap;
-}
-.filters button{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.12);
-  color:rgba(255,255,255,0.5);
-  font-family:inherit;
-  font-size:0.6rem;
-  font-weight:700;
+.site-header .thesis{
+  font-size:0.65rem;
+  color:rgba(255,255,255,0.45);
   text-transform:uppercase;
-  letter-spacing:0.12em;
-  padding:6px 14px;
-  cursor:pointer;
-  transition:all 0.2s;
+  letter-spacing:0.18em;
+  max-width:560px;
+  text-align:right;
+  line-height:1.5;
 }
-.filters button:hover,
-.filters button.active{
-  background:rgba(255,255,255,0.15);
-  color:#fff;
-  border-color:rgba(255,255,255,0.3);
+@media(max-width:720px){
+  .site-header{align-items:flex-start;flex-direction:column}
+  .site-header .thesis{text-align:left}
 }
 
-/* GRID */
+/* ── HERO TRIO ───────────────────────────────────── */
+.hero-section{
+  max-width:var(--max);
+  margin:18px auto 0;
+  padding:0 var(--gap);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--gap);
+}
+.hero-card{
+  aspect-ratio:1;
+  position:relative;
+  overflow:hidden;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  transition:transform 0.25s ease,box-shadow 0.25s ease;
+}
+.hero-card:hover{
+  transform:scale(1.01);
+  z-index:2;
+  box-shadow:0 8px 40px rgba(0,0,0,0.6);
+}
+.hero-card svg.bg-pattern{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  opacity:0.22;
+  transition:opacity 0.3s;
+  pointer-events:none;
+}
+.hero-card:hover svg.bg-pattern{opacity:0.42}
+.hero-role{
+  position:relative;z-index:1;
+  font-size:0.58rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.28em;
+  opacity:0.75;
+}
+.hero-rank{
+  position:absolute;
+  top:22px;right:22px;
+  z-index:1;
+  font-size:0.5rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+  opacity:0.4;
+}
+.hero-spacer{flex:1}
+.hero-stat{
+  position:relative;z-index:1;
+  font-size:clamp(2.6rem,7vw,4.4rem);
+  font-weight:800;
+  line-height:0.95;
+  letter-spacing:-0.01em;
+}
+.hero-title{
+  position:relative;z-index:1;
+  font-size:clamp(0.78rem,1.4vw,0.95rem);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  margin-top:8px;
+  line-height:1.35;
+}
+.hero-meta{
+  position:relative;z-index:1;
+  font-size:0.55rem;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  opacity:0.55;
+  margin-top:14px;
+  line-height:1.5;
+  border-top:1px solid currentColor;
+  padding-top:10px;
+  opacity:0.5;
+}
+
+/* ── ATLAS DIVIDER (section header + filters) ────── */
+.atlas-divider{
+  max-width:var(--max);
+  margin:48px auto 14px;
+  padding:18px 24px 14px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:16px;
+  border-top:1px solid rgba(255,255,255,0.12);
+}
+.divider-left{display:flex;flex-direction:column;gap:4px}
+.divider-index{
+  font-size:0.55rem;
+  color:rgba(255,255,255,0.35);
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+}
+.divider-label{
+  font-size:clamp(1rem,2.4vw,1.4rem);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+}
+.divider-count{
+  font-size:0.6rem;
+  color:rgba(255,255,255,0.4);
+  text-transform:uppercase;
+  letter-spacing:0.16em;
+  margin-top:2px;
+}
+
+/* ── FILTER BAR (upgraded authority) ─────────────── */
+.filters{
+  display:flex;
+  gap:0;
+  flex-wrap:wrap;
+  border:1px solid rgba(255,255,255,0.18);
+}
+.filters button{
+  background:transparent;
+  border:none;
+  border-right:1px solid rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.55);
+  font-family:inherit;
+  font-size:0.58rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+  padding:12px 18px;
+  cursor:pointer;
+  transition:all 0.18s;
+}
+.filters button:last-child{border-right:none}
+.filters button:hover{
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+}
+.filters button.active{
+  background:#fff;
+  color:#0a0a0a;
+}
+
+/* ── AGENT ATLAS GRID ────────────────────────────── */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:var(--gap);
-  max-width:1200px;
+  max-width:var(--max);
   margin:0 auto;
   padding:0 var(--gap);
 }
-@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:1fr}}
+@media(max-width:820px){
+  .grid,.hero-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+  .grid,.hero-grid{grid-template-columns:1fr}
+  /* Mobile reading order: proof → gates → identity */
+  .hero-card[data-id="pilot"]{order:1}
+  .hero-card[data-id="gates"]{order:2}
+  .hero-card[data-id="swarm"]{order:3}
+}
 
-/* CARD */
+/* ── CARD ────────────────────────────────────────── */
 .card{
   aspect-ratio:1;
   position:relative;
@@ -96,62 +238,80 @@ body{
   justify-content:flex-end;
   padding:16px;
   cursor:pointer;
-  transition:transform 0.25s ease,box-shadow 0.25s ease;
+  transition:transform 0.25s ease,box-shadow 0.25s ease,opacity 0.3s;
 }
 .card:hover{
-  transform:scale(1.02);
+  transform:scale(1.015);
   z-index:2;
-  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+  box-shadow:0 8px 30px rgba(0,0,0,0.5);
 }
 .card svg.bg-pattern{
-  position:absolute;
-  top:0;left:0;
+  position:absolute;inset:0;
   width:100%;height:100%;
-  opacity:0.2;
+  opacity:0.18;
   transition:opacity 0.3s;
   pointer-events:none;
 }
-.card:hover svg.bg-pattern{
-  opacity:0.45;
-}
+.card:hover svg.bg-pattern{opacity:0.4}
 .card-cell{
   position:relative;z-index:1;
-  font-size:0.5rem;
+  font-size:0.48rem;
   font-weight:800;
   text-transform:uppercase;
-  letter-spacing:0.2em;
+  letter-spacing:0.22em;
   opacity:0.5;
   margin-bottom:4px;
 }
 .card-title{
   position:relative;z-index:1;
-  font-size:clamp(0.75rem,2vw,1rem);
+  font-size:clamp(0.75rem,1.7vw,0.95rem);
   font-weight:800;
   text-transform:uppercase;
   letter-spacing:0.08em;
   line-height:1.2;
 }
+.card-sublabel{
+  position:relative;z-index:1;
+  font-size:0.52rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  opacity:0.5;
+  margin-top:6px;
+  line-height:1.4;
+}
 .card-stat{
   position:relative;z-index:1;
-  font-size:clamp(1.6rem,4vw,2.8rem);
+  font-size:clamp(1.6rem,3.8vw,2.6rem);
   font-weight:800;
   line-height:1;
   margin-bottom:4px;
 }
 .card-stat-label{
   position:relative;z-index:1;
-  font-size:0.55rem;
+  font-size:0.52rem;
   font-weight:700;
   text-transform:uppercase;
-  letter-spacing:0.15em;
-  opacity:0.6;
+  letter-spacing:0.16em;
+  opacity:0.55;
+  line-height:1.4;
 }
-.card.dim{opacity:0.15;pointer-events:none;transition:opacity 0.3s}
+.card.dim{opacity:0.12;pointer-events:none}
 
-/* MODAL */
+/* ── SUPPORT STRIP ───────────────────────────────── */
+.support-divider{
+  max-width:var(--max);
+  margin:40px auto 14px;
+  padding:14px 24px;
+  border-top:1px solid rgba(255,255,255,0.12);
+}
+.support-divider .divider-label{font-size:clamp(0.85rem,1.8vw,1.05rem)}
+.support-divider .divider-count{margin-top:4px}
+
+/* ── MODAL ───────────────────────────────────────── */
 .modal-overlay{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:rgba(0,0,0,0.85);
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.88);
   z-index:100;
   display:none;
   align-items:center;
@@ -159,11 +319,10 @@ body{
   padding:24px;
 }
 .modal-overlay.open{display:flex}
+.modal-wrap{position:relative;max-width:600px;width:100%}
 .modal{
   background:#111;
   border:1px solid rgba(255,255,255,0.1);
-  max-width:600px;
-  width:100%;
   max-height:85vh;
   overflow-y:auto;
   padding:32px;
@@ -172,104 +331,126 @@ body{
   font-size:1.2rem;
   font-weight:800;
   text-transform:uppercase;
-  letter-spacing:0.1em;
+  letter-spacing:0.12em;
   margin-bottom:4px;
 }
 .modal .modal-cell{
   font-size:0.6rem;
   color:rgba(255,255,255,0.4);
   text-transform:uppercase;
-  letter-spacing:0.15em;
-  margin-bottom:16px;
+  letter-spacing:0.16em;
+  margin-bottom:18px;
 }
 .modal .modal-desc{
-  font-size:0.8rem;
-  line-height:1.6;
-  color:rgba(255,255,255,0.7);
+  font-size:0.82rem;
+  line-height:1.65;
+  color:rgba(255,255,255,0.72);
   margin-bottom:20px;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
-.modal .modal-section{
-  margin-bottom:16px;
-}
+.modal .modal-section{margin-bottom:18px}
 .modal .modal-section h3{
   font-size:0.6rem;
   font-weight:800;
   text-transform:uppercase;
-  letter-spacing:0.15em;
+  letter-spacing:0.18em;
   color:rgba(255,255,255,0.4);
-  margin-bottom:8px;
+  margin-bottom:10px;
   border-bottom:1px solid rgba(255,255,255,0.08);
-  padding-bottom:4px;
+  padding-bottom:5px;
 }
 .modal .relevance-row{
   display:flex;
   justify-content:space-between;
-  font-size:0.7rem;
-  padding:3px 0;
+  font-size:0.72rem;
+  padding:4px 0;
   border-bottom:1px solid rgba(255,255,255,0.04);
 }
-.modal .relevance-row .val{font-weight:700}
+.modal .relevance-row .val{font-weight:700;letter-spacing:0.12em}
 .modal .relevance-row .val.high{color:#00C853}
 .modal .relevance-row .val.med{color:#FFD600}
 .modal .relevance-row .val.low{color:rgba(255,255,255,0.2)}
 .modal-close{
-  position:absolute;top:16px;right:20px;
+  position:absolute;top:12px;right:16px;
   background:none;border:none;color:#fff;
-  font-size:1.4rem;cursor:pointer;opacity:0.4;
-  font-family:inherit;
+  font-size:1.5rem;cursor:pointer;opacity:0.4;
+  font-family:inherit;z-index:2;
 }
 .modal-close:hover{opacity:1}
-.modal-wrap{position:relative}
-.modal .color-bar{
-  height:4px;
-  margin-bottom:20px;
-}
+.modal .color-bar{height:4px;margin-bottom:20px}
 
-/* FOOTER */
-.footer{
-  max-width:1200px;
-  margin:0 auto;
-  padding:32px 24px;
+/* ── FOOTER ──────────────────────────────────────── */
+.site-footer{
+  max-width:var(--max);
+  margin:40px auto 0;
+  padding:28px 24px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   flex-wrap:wrap;
   gap:12px;
+  border-top:1px solid rgba(255,255,255,0.08);
 }
-.footer a{
-  color:rgba(255,255,255,0.3);
+.site-footer a{
+  color:rgba(255,255,255,0.35);
   text-decoration:none;
   font-size:0.6rem;
   text-transform:uppercase;
-  letter-spacing:0.12em;
+  letter-spacing:0.16em;
   transition:color 0.2s;
 }
-.footer a:hover{color:#fff}
-.footer .copy{
+.site-footer a:hover{color:#fff}
+.site-footer .copy{
   font-size:0.55rem;
-  color:rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.2);
   text-transform:uppercase;
-  letter-spacing:0.1em;
+  letter-spacing:0.12em;
 }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Scientific Review Swarm <span class="badge">v1.0.0</span></h1>
-  <div class="subtitle">15 scientific-domain agents reviewing defense-aerospace projects</div>
-  <div class="filters">
+<header class="site-header">
+  <div>
+    <h1>Scientific Review Swarm <span class="badge">v1.0.0</span></h1>
+  </div>
+  <div class="thesis">Peer swarm of 15 scientific-domain agents. Gate-integrated review for defense-aerospace programs.</div>
+</header>
+
+<!-- ── HERO TRIO: identity · proof · gates ─────── -->
+<section class="hero-section">
+  <div class="hero-grid" id="hero-grid"></div>
+</section>
+
+<!-- ── ATLAS DIVIDER ──────────────────────────── -->
+<section class="atlas-divider">
+  <div class="divider-left">
+    <div class="divider-index">02 · Registry</div>
+    <div class="divider-label">Agent Atlas</div>
+    <div class="divider-count">15 domains · 3 cells · wave-launched</div>
+  </div>
+  <div class="filters" role="tablist">
     <button class="active" data-filter="all">All</button>
     <button data-filter="physical">Physical Sciences</button>
     <button data-filter="cross">Cross-Cutting</button>
     <button data-filter="life">Life Sciences</button>
-    <button data-filter="meta">Project</button>
   </div>
-</div>
+</section>
 
+<!-- ── AGENT ATLAS GRID ───────────────────────── -->
 <div class="grid" id="grid"></div>
 
+<!-- ── SUPPORT STRIP ──────────────────────────── -->
+<section class="support-divider">
+  <div class="divider-left">
+    <div class="divider-index">03 · Operational Support</div>
+    <div class="divider-label">Risk · Matrix · Cell Map</div>
+    <div class="divider-count">Supporting evidence, not hero surfaces</div>
+  </div>
+</section>
+<div class="grid" id="support-grid"></div>
+
+<!-- ── MODAL ──────────────────────────────────── -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-wrap">
     <button class="modal-close" id="modal-close">&times;</button>
@@ -277,130 +458,153 @@ body{
   </div>
 </div>
 
-<div class="footer">
-  <div>
-    <a href="https://github.com/augustave/scientific-review-swarm" target="_blank">GitHub</a>
-  </div>
-  <div class="copy">augustave / scientific-review-swarm</div>
-</div>
+<footer class="site-footer">
+  <a href="https://github.com/augustave/scientific-review-swarm" target="_blank">GitHub ↗</a>
+  <span class="copy">augustave / scientific-review-swarm · peer to autonomous-aerospace-collective</span>
+</footer>
 
 <script>
-// ── DATA ──────────────────────────────────────────
-const AGENTS = [
-  // Row 1: Meta
-  { id:'swarm', type:'meta', filter:'meta', bg:'#0a0a0a', text:'#fff', pattern:'hexmesh',
-    title:'Scientific Review Swarm', cell:'Peer Swarm', stat:'15', statLabel:'AGENTS / 3 CELLS',
-    desc:'A peer swarm of 15 scientific-domain agents that review defense-aerospace projects through specialized lenses, feeding structured findings into G1-G4 gate processes.',
-    defense:'Peer swarm to autonomous-aerospace-collective. Each domain becomes an agent that analyzes projects from its unique scientific perspective — materials, physics, simulation, biology, clinical methodology, ML, and more.',
-    relevance:null },
-  { id:'pilot', type:'meta', filter:'meta', bg:'#D50000', text:'#fff', pattern:'target',
-    title:'Pilot Test: MINI-D', cell:'Consolidated Review', stat:'70', statLabel:'FINDINGS / 13 CRITICAL',
-    desc:'First pilot test against the MINI-D Distributed Mini-Drone Autonomy Simulation Lab. Deployed 10 of 15 agents (HIGH+MEDIUM relevance). Identified 4 critical risks including fabricated verification data and zero uncertainty quantification.',
-    defense:'NASA-STD-7009 credibility assessment: Level 1-2/5. Suitable for concept exploration, not requirements verification. Top convergence signal: 4 agents independently flagged the UQ gap.',
-    relevance:null },
-  { id:'gates', type:'meta', filter:'meta', bg:'#FAFAFA', text:'#0a0a0a', pattern:'gates',
-    title:'Gate Integration', cell:'G1 → G2 → G3 → G4', stat:'G1-G4', statLabel:'ARCHITECTURE → FABRICATION → VALIDATION → CLAIMS',
+// ── HERO TRIO ─────────────────────────────────────
+const HERO = [
+  { id:'swarm', bg:'#0a0a0a', text:'#fff', pattern:'clusters',
+    role:'Peer Swarm Structure', rank:'01',
+    stat:'15', title:'Agents / 3 Cells',
+    meta:'Wave-based parallel launch · cross-cell flag propagation',
+    cell:'Peer Swarm',
+    desc:'A peer swarm of 15 scientific-domain agents that review defense-aerospace projects through specialized lenses, feeding structured findings into G1–G4 gate processes. Physical Sciences (5) → Cross-Cutting (3) → Life Sciences (7), executed in waves.',
+    defense:'Peer swarm to autonomous-aerospace-collective. Each domain becomes an agent that analyzes projects from its unique scientific perspective. Wave-launch enables cross-domain flag promotion: HIGH findings in Wave 1 can trigger otherwise-skipped LOW-relevance agents in Wave 3.' },
+  { id:'pilot', bg:'#D50000', text:'#fff', pattern:'target',
+    role:'Pilot Test · MINI-D', rank:'02',
+    stat:'70', title:'Findings / 13 Critical',
+    meta:'NASA-STD-7009 credibility Level 1–2/5 · cross-agent convergence on UQ gap',
+    cell:'Consolidated Review',
+    desc:'First pilot against the MINI-D Distributed Mini-Drone Autonomy Simulation Lab. Deployed 10 of 15 agents (HIGH + MEDIUM relevance). Produced 70 raw findings, 13 critical, consolidated into 20 ranked risks with 4 critical.',
+    defense:'Top convergence signal: 4 agents independently flagged zero uncertainty quantification. Surface credibility not yet suitable for requirements verification — suitable for concept exploration and early design tradeoffs.' },
+  { id:'gates', bg:'#FAFAFA', text:'#0a0a0a', pattern:'gates',
+    role:'Gate Integration', rank:'03',
+    stat:'G1→G4', title:'Architecture · Fabrication · Validation · Claims',
+    meta:'Findings route to gate release authority in the decision pipeline',
+    cell:'G1 → G2 → G3 → G4',
     desc:'Scientific findings are tagged to specific gates in the autonomous-aerospace-collective pipeline. G1: physics reality checks. G2: manufacturing concerns. G3: test methodology rigor. G4: claims scientific backing.',
-    defense:'Release authority extended: Scientific Review Lead provides advisory signoff for G1/G2, required signoff for G3/G4. Invariant strengthening table maps each agent to the existing invariants they reinforce.',
-    relevance:null },
+    defense:'Release authority extended: Scientific Review Lead provides advisory signoff for G1/G2, required signoff for G3/G4. Invariant strengthening table maps each agent to the existing invariants they reinforce.' },
+];
 
-  // Row 2-3: Physical Sciences
-  { id:'materials', type:'agent', filter:'physical', bg:'#FFD600', text:'#0a0a0a', pattern:'lattice',
+// ── AGENT ATLAS (15) ──────────────────────────────
+const AGENTS = [
+  // Physical Sciences (5)
+  { id:'materials', filter:'physical', bg:'#FFD600', text:'#0a0a0a', pattern:'lattice',
     title:'Materials Science', cell:'Physical Sciences',
+    sublabel:'durability / thermal / fatigue',
     desc:'Reviews composites, thermal protection, radar-absorbing materials, fatigue life, coatings, and environmental degradation for defense-aerospace applications.',
     defense:'Airframe composites, thermal protection systems, RAM coatings, fatigue life methodology, corrosion resistance, RCS-driven material tradeoffs.',
     relevance:{drone:'HIGH',aircraft:'HIGH',radar:'MED',racing:'HIGH',docs:'LOW',twin:'MED'} },
-  { id:'physics', type:'agent', filter:'physical', bg:'#FAFAFA', text:'#0a0a0a', pattern:'orbital',
+  { id:'physics', filter:'physical', bg:'#FAFAFA', text:'#0a0a0a', pattern:'orbital',
     title:'Physics & Astronomy', cell:'Physical Sciences',
+    sublabel:'mechanics / EM / orbit',
     desc:'Reviews orbital mechanics, RF/radar physics, propulsion thermodynamics, aerodynamics, atmospheric effects, and electromagnetic propagation.',
     defense:'RF link budgets, orbital perturbations, propulsion thermodynamics, aerodynamic validation, atmospheric propagation models.',
     relevance:{drone:'MED',aircraft:'HIGH',radar:'HIGH',racing:'MED',docs:'LOW',twin:'HIGH'} },
-  { id:'engsim', type:'agent', filter:'physical', bg:'#00C853', text:'#fff', pattern:'mesh',
+  { id:'engsim', filter:'physical', bg:'#00C853', text:'#fff', pattern:'mesh',
     title:'Engineering Simulation', cell:'Physical Sciences',
+    sublabel:'credibility / UQ / V&V',
     desc:'Reviews FEA, CFD, multi-physics simulation, V&V per NASA-STD-7009, uncertainty quantification, mesh convergence, and simulation credibility.',
     defense:'Simulation credibility assessment, mesh convergence studies, uncertainty quantification, physics fidelity, V&V methodology per NASA-STD-7009.',
     relevance:{drone:'HIGH',aircraft:'HIGH',radar:'MED',racing:'HIGH',docs:'LOW',twin:'HIGH'} },
-  { id:'data', type:'agent', filter:'physical', bg:'#2962FF', text:'#fff', pattern:'scatter',
+  { id:'data', filter:'physical', bg:'#2962FF', text:'#fff', pattern:'scatter',
     title:'Data Analysis', cell:'Physical Sciences',
+    sublabel:'telemetry / anomaly / statistics',
     desc:'Reviews statistical methods, time series analysis, sensor fusion, anomaly detection, uncertainty quantification, data visualization, and data provenance.',
     defense:'Telemetry analysis, sensor fusion uncertainty, statistical process control, anomaly detection pipelines, decision-support visualization.',
     relevance:{drone:'HIGH',aircraft:'MED',radar:'HIGH',racing:'MED',docs:'MED',twin:'HIGH'} },
-  { id:'lab', type:'agent', filter:'physical', bg:'#00BCD4', text:'#0a0a0a', pattern:'circuit',
+  { id:'lab', filter:'physical', bg:'#00BCD4', text:'#0a0a0a', pattern:'circuit',
     title:'Lab Automation', cell:'Physical Sciences',
+    sublabel:'HIL / calibration / provenance',
     desc:'Reviews HIL test automation, instrument integration, calibration management, data provenance, CI/CD for hardware, and evidence chain integrity.',
     defense:'Hardware-in-loop test rigs, calibration management systems, automated regression suites, data provenance chains, CI/CD for physical test infrastructure.',
     relevance:{drone:'MED',aircraft:'HIGH',radar:'MED',racing:'MED',docs:'LOW',twin:'MED'} },
 
-  // Row 4: Cross-Cutting
-  { id:'ml', type:'agent', filter:'cross', bg:'#D50000', text:'#fff', pattern:'neural',
+  // Cross-Cutting (3)
+  { id:'ml', filter:'cross', bg:'#D50000', text:'#fff', pattern:'neural',
     title:'Machine Learning', cell:'Cross-Cutting',
+    sublabel:'autonomy / robustness / deployment',
     desc:'Reviews autonomy pipelines, perception systems, reinforcement learning, on-edge inference, adversarial robustness, sim-to-real transfer, and model V&V.',
     defense:'Autonomy/perception ML, RL for mission planning, SWaP-constrained inference, adversarial robustness, sim-to-real gap analysis.',
     relevance:{drone:'HIGH',aircraft:'MED',radar:'MED',racing:'HIGH',docs:'LOW',twin:'HIGH'} },
-  { id:'chem', type:'agent', filter:'cross', bg:'#AA00FF', text:'#fff', pattern:'molecule',
+  { id:'chem', filter:'cross', bg:'#AA00FF', text:'#fff', pattern:'molecule',
     title:'Cheminformatics', cell:'Cross-Cutting',
+    sublabel:'chemistry / battery / corrosion',
     desc:'Reviews propellant and battery chemistry, energy density tradeoffs, corrosion chemistry, chemical sensor design, CBRN detection, and molecular property prediction.',
     defense:'Battery thermal runaway tradeoffs, propellant chemistry, corrosion-resistant coatings, CBRN detection algorithms, molecular property prediction.',
     relevance:{drone:'LOW',aircraft:'MED',radar:'LOW',racing:'MED',docs:'LOW',twin:'LOW'} },
-  { id:'scicom', type:'agent', filter:'cross', bg:'#E91E63', text:'#fff', pattern:'document',
+  { id:'scicom', filter:'cross', bg:'#E91E63', text:'#fff', pattern:'document',
     title:'Scientific Communication', cell:'Cross-Cutting',
+    sublabel:'claims / evidence / traceability',
     desc:'Reviews claims traceability, evidence quality, technical writing clarity, report standards, peer review readiness, and overclaiming detection.',
     defense:'Claims supported at stated confidence levels, document structure consistency, limitation transparency, evidence hierarchy clarity, G4 compliance.',
     relevance:{drone:'MED',aircraft:'MED',radar:'MED',racing:'MED',docs:'HIGH',twin:'MED'} },
 
-  // Row 5-7: Life Sciences
-  { id:'bioinfo', type:'agent', filter:'life', bg:'#00C853', text:'#fff', pattern:'helix',
+  // Life Sciences (7)
+  { id:'bioinfo', filter:'life', bg:'#00C853', text:'#fff', pattern:'helix',
     title:'Bioinformatics', cell:'Life Sciences',
+    sublabel:'swarm logic / adaptation / bio-inspired systems',
     desc:'Reviews bio-inspired swarm algorithms (ACO, PSO, GA), evolutionary optimization, biological sensing paradigms, network biology applied to distributed systems.',
     defense:'Ant colony optimization for route planning, particle swarm optimization, genetic algorithms for design search, stigmergy, quorum sensing, Reynolds boids.',
     relevance:{drone:'HIGH',aircraft:'LOW',radar:'LOW',racing:'MED',docs:'LOW',twin:'MED'} },
-  { id:'proteo', type:'agent', filter:'life', bg:'#2962FF', text:'#fff', pattern:'peaks',
+  { id:'proteo', filter:'life', bg:'#2962FF', text:'#fff', pattern:'peaks',
     title:'Proteomics', cell:'Life Sciences',
+    sublabel:'trace detection / spectral sensitivity',
     desc:'Reviews trace detection techniques, spectral analysis, peptide identification applied to ISR payload sensors, spectral signature analysis, and contamination detection.',
     defense:'Trace-level chemical detection for ISR, spectral pipeline validation against reference libraries, contamination detection, materials characterization.',
     relevance:{drone:'LOW',aircraft:'LOW',radar:'HIGH',racing:'LOW',docs:'LOW',twin:'LOW'} },
-  { id:'clinical', type:'agent', filter:'life', bg:'#00BCD4', text:'#0a0a0a', pattern:'fork',
+  { id:'clinical', filter:'life', bg:'#00BCD4', text:'#0a0a0a', pattern:'fork',
     title:'Clinical Research', cell:'Life Sciences',
+    sublabel:'test design / confounds / power',
     desc:'Reviews rigorous test protocol design, evidence hierarchies, statistical power, confounding variable control, and systematic bias avoidance. Clinical trial methodology for machines.',
     defense:'Statistically powered test campaigns, controlled confounding variables, pre-registered protocols, intention-to-treat analysis, evidence hierarchy for operational testing.',
     relevance:{drone:'MED',aircraft:'MED',radar:'LOW',racing:'LOW',docs:'MED',twin:'MED'} },
-  { id:'health', type:'agent', filter:'life', bg:'#E91E63', text:'#fff', pattern:'heartcircuit',
+  { id:'health', filter:'life', bg:'#E91E63', text:'#fff', pattern:'heartcircuit',
     title:'Healthcare AI', cell:'Life Sciences',
+    sublabel:'safety / HITL / drift',
     desc:'Reviews autonomy safety cases, model V&V, bias detection in training data, human-machine trust calibration, and runtime safety monitoring.',
     defense:'Safety cases (GSN/FMEA), model drift detection, human-override mechanisms, runtime safety monitoring, trust calibration for autonomous systems.',
     relevance:{drone:'MED',aircraft:'MED',radar:'LOW',racing:'MED',docs:'LOW',twin:'MED'} },
-  { id:'medimg', type:'agent', filter:'life', bg:'#FF6D00', text:'#0a0a0a', pattern:'scan',
+  { id:'medimg', filter:'life', bg:'#FF6D00', text:'#0a0a0a', pattern:'scan',
     title:'Medical Imaging', cell:'Life Sciences',
+    sublabel:'segmentation / EO-IR / SAR',
     desc:'Reviews image processing pipelines, segmentation, registration, anomaly detection applied to EO/IR processing, SAR imagery, target detection, and damage assessment.',
     defense:'EO/IR processing pipelines, SAR image analysis, target segmentation FP/FN rates, multi-sensor registration, damage assessment, materials inspection.',
     relevance:{drone:'MED',aircraft:'LOW',radar:'HIGH',racing:'MED',docs:'LOW',twin:'MED'} },
-  { id:'omics', type:'agent', filter:'life', bg:'#FF6D00', text:'#0a0a0a', pattern:'venn',
+  { id:'omics', filter:'life', bg:'#FF6D00', text:'#0a0a0a', pattern:'venn',
     title:'Multi-omics', cell:'Life Sciences',
+    sublabel:'fusion / emergence / topology',
     desc:'Reviews multi-domain data integration, pathway analysis, network biology, emergent behavior in complex systems applied to multi-domain defense architectures.',
     defense:'Multi-domain RF+EO/IR+SIGINT integration, emergent swarm behavior modeling, network topology analysis, phase transition detection, feedback loop characterization.',
     relevance:{drone:'HIGH',aircraft:'MED',radar:'MED',racing:'LOW',docs:'LOW',twin:'HIGH'} },
-  { id:'proteng', type:'agent', filter:'life', bg:'#AA00FF', text:'#fff', pattern:'ribbon',
+  { id:'proteng', filter:'life', bg:'#AA00FF', text:'#fff', pattern:'ribbon',
     title:'Protein Engineering', cell:'Life Sciences',
+    sublabel:'optimization / modular interaction',
     desc:'Reviews directed evolution optimization, structure-function relationships, modular architecture analysis, and bio-mimetic structural design.',
     defense:'Directed evolution for design parameter optimization, structure-function coupling analysis, modular architecture design, bio-mimetic structural patterns.',
     relevance:{drone:'LOW',aircraft:'MED',radar:'LOW',racing:'LOW',docs:'LOW',twin:'LOW'} },
+];
 
-  // Row 7: Summary
-  { id:'risk', type:'meta', filter:'meta', bg:'#0a0a0a', text:'#D50000', pattern:'warning',
-    title:'Risk Register', cell:'MINI-D Pilot', stat:'20', statLabel:'RISKS / 4 CRITICAL / 7 HIGH',
-    desc:'20 ranked risks from the MINI-D pilot test. Critical: ProofConsole fabricated data, zero UQ, CoV false label, uniform drift. High: claim ID collision, no artifact hashes, E3 missing fixtures, Euler instability.',
-    defense:'All risks mapped to G1-G4 gates with specific remediation recommendations. Cross-agent convergence on UQ gap (4 agents) provides highest-confidence signal.',
-    relevance:null },
-  { id:'matrix', type:'meta', filter:'meta', bg:'#1A1A1A', text:'#00C853', pattern:'dotgrid',
-    title:'Relevance Matrix', cell:'Agent Selection', stat:'15x6', statLabel:'AGENTS x PROJECT TYPES',
-    desc:'Pre-classification of agent relevance (HIGH/MEDIUM/LOW) per project type: Drone Swarm, Aircraft Design, Radar/Sensing, Racing Drone, Defense Docs, Digital Twin. Typically launches 8-12 of 15 agents.',
-    defense:'Orchestrator uses matrix for triage. HIGH+MEDIUM agents launch by default. LOW agents skipped unless full review requested or cross-domain flags promote them.',
-    relevance:null },
-  { id:'cells', type:'meta', filter:'meta', bg:'#0a0a0a', text:'#fff', pattern:'clusters',
-    title:'Cell Architecture', cell:'Wave Launch', stat:'3', statLabel:'CELLS / WAVE-BASED PARALLEL LAUNCH',
+// ── SUPPORT STRIP (3 meta cards) ──────────────────
+const SUPPORT = [
+  { id:'risk', bg:'#0a0a0a', text:'#D50000', pattern:'warning',
+    title:'Risk Register', cell:'MINI-D Pilot',
+    stat:'20', statLabel:'Risks / 4 Critical / 7 High',
+    desc:'20 ranked risks from the MINI-D pilot. Critical: ProofConsole fabricated data, zero UQ, CoV false label, uniform drift. High: claim ID collision, no artifact hashes, E3 missing fixtures, Euler instability.',
+    defense:'All risks mapped to G1–G4 gates with specific remediation recommendations. Cross-agent convergence on UQ gap (4 agents) provides highest-confidence signal.' },
+  { id:'matrix', bg:'#1A1A1A', text:'#00C853', pattern:'dotgrid',
+    title:'Relevance Matrix', cell:'Agent Selection',
+    stat:'15×6', statLabel:'Agents × Project Types',
+    desc:'Pre-classification of agent relevance (HIGH/MED/LOW) per project type: Drone Swarm, Aircraft Design, Radar/Sensing, Racing Drone, Defense Docs, Digital Twin. Typical launch: 8–12 of 15 agents.',
+    defense:'Orchestrator uses matrix for triage. HIGH+MEDIUM agents launch by default. LOW agents skipped unless full review requested or cross-domain flags promote them.' },
+  { id:'cells', bg:'#0a0a0a', text:'#fff', pattern:'hexmesh',
+    title:'Cell Architecture', cell:'Wave Launch',
+    stat:'3', statLabel:'Cells / Wave-Based Parallel Launch',
     desc:'Physical Sciences (5 agents) → Cross-Cutting (3 agents) → Life Sciences (7 agents). Wave-based launch enables cross-domain flag propagation between cells.',
-    defense:'Parallel execution within cells, sequential waves between cells. Cross-domain flags from Wave 1 can promote skipped agents in Wave 3. Typical wall-clock: ~20 minutes for 10 agents.',
-    relevance:null }
+    defense:'Parallel execution within cells, sequential waves between cells. Cross-domain flags from Wave 1 can promote skipped agents in Wave 3. Typical wall-clock: ~20 minutes for 10 agents.' },
 ];
 
 const PROJECT_TYPES = ['drone','aircraft','radar','racing','docs','twin'];
@@ -451,15 +655,34 @@ function svgPattern(type, textColor) {
 
     case 'dotgrid': return `<svg class="bg-pattern" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">${(()=>{let r='';const vals=['H','M','L','H','M','M','H','H','M','H','L','H','M','L','L','M','L','M','H','M','H','M','M','H','M','H','M','M','L','M','H','L','L','M','L','M'];for(let y=0;y<6;y++)for(let x=0;x<6;x++){const px=45+x*60,py=45+y*60;const v=vals[y*6+x]||'L';const op=v==='H'?0.5:v==='M'?0.25:0.08;r+=`<circle cx="${px}" cy="${py}" r="${v==='H'?10:v==='M'?7:4}" fill="${s(op)}"/>`}return r})()}</svg>`;
 
-    case 'clusters': return `<svg class="bg-pattern" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">${(()=>{let r='';const clusters=[{cx:120,cy:150,label:'A',n:5},{cx:280,cy:150,label:'B',n:7},{cx:200,cy:300,label:'C',n:3}];clusters.forEach(cl=>{r+=`<circle cx="${cl.cx}" cy="${cl.cy}" r="60" fill="${s(0.05)}" stroke="${s(0.2)}" stroke-width="1" stroke-dasharray="4,4"/>`;r+=`<text x="${cl.cx}" y="${cl.cy+4}" text-anchor="middle" font-size="16" font-weight="800" fill="${s(0.35)}" font-family="monospace">${cl.label}</text>`;for(let i=0;i<cl.n;i++){const a=Math.PI*2*i/cl.n;const d=25+Math.random()*15;r+=`<circle cx="${cl.cx+d*Math.cos(a)}" cy="${cl.cy+d*Math.sin(a)}" r="4" fill="${s(0.3)}"/>`}});r+=`<line x1="165" y1="170" x2="235" y2="170" stroke="${s(0.2)}" stroke-width="1.5" stroke-dasharray="4,4"/>`;r+=`<line x1="145" y1="195" x2="185" y2="270" stroke="${s(0.2)}" stroke-width="1.5" stroke-dasharray="4,4"/>`;r+=`<line x1="255" y1="195" x2="215" y2="270" stroke="${s(0.2)}" stroke-width="1.5" stroke-dasharray="4,4"/>`;return r})()}</svg>`;
+    case 'clusters': return `<svg class="bg-pattern" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">${(()=>{let r='';const clusters=[{cx:120,cy:150,label:'PHYS',n:5},{cx:280,cy:150,label:'CROSS',n:3},{cx:200,cy:300,label:'LIFE',n:7}];clusters.forEach(cl=>{r+=`<circle cx="${cl.cx}" cy="${cl.cy}" r="62" fill="${s(0.05)}" stroke="${s(0.25)}" stroke-width="1" stroke-dasharray="4,4"/>`;r+=`<text x="${cl.cx}" y="${cl.cy+4}" text-anchor="middle" font-size="11" font-weight="800" fill="${s(0.4)}" font-family="monospace">${cl.label}</text>`;for(let i=0;i<cl.n;i++){const a=Math.PI*2*i/cl.n;const d=26+Math.random()*14;r+=`<circle cx="${cl.cx+d*Math.cos(a)}" cy="${cl.cy+d*Math.sin(a)}" r="3.5" fill="${s(0.35)}"/>`}});r+=`<line x1="165" y1="170" x2="235" y2="170" stroke="${s(0.22)}" stroke-width="1.5" stroke-dasharray="4,4"/>`;r+=`<line x1="145" y1="195" x2="185" y2="270" stroke="${s(0.22)}" stroke-width="1.5" stroke-dasharray="4,4"/>`;r+=`<line x1="255" y1="195" x2="215" y2="270" stroke="${s(0.22)}" stroke-width="1.5" stroke-dasharray="4,4"/>`;return r})()}</svg>`;
 
     default: return '';
   }
 }
 
-// ── RENDER ─────────────────────────────────────────
-const grid = document.getElementById('grid');
+// ── RENDER HERO ───────────────────────────────────
+const heroGrid = document.getElementById('hero-grid');
+HERO.forEach(h => {
+  const card = document.createElement('div');
+  card.className = 'hero-card';
+  card.dataset.id = h.id;
+  card.style.background = h.bg;
+  card.style.color = h.text;
+  let inner = svgPattern(h.pattern, h.text);
+  inner += `<div class="hero-role">${h.role}</div>`;
+  inner += `<div class="hero-rank">${h.rank}</div>`;
+  inner += `<div class="hero-spacer"></div>`;
+  inner += `<div class="hero-stat">${h.stat}</div>`;
+  inner += `<div class="hero-title">${h.title}</div>`;
+  inner += `<div class="hero-meta">${h.meta}</div>`;
+  card.innerHTML = inner;
+  card.addEventListener('click', () => openModal(h));
+  heroGrid.appendChild(card);
+});
 
+// ── RENDER AGENT ATLAS ────────────────────────────
+const grid = document.getElementById('grid');
 AGENTS.forEach(agent => {
   const card = document.createElement('div');
   card.className = 'card';
@@ -467,74 +690,73 @@ AGENTS.forEach(agent => {
   card.dataset.id = agent.id;
   card.style.background = agent.bg;
   card.style.color = agent.text;
-
   let inner = svgPattern(agent.pattern, agent.text);
-
-  if (agent.stat) {
-    inner += `<div class="card-cell">${agent.cell}</div>`;
-    inner += `<div class="card-stat">${agent.stat}</div>`;
-    inner += `<div class="card-title">${agent.title}</div>`;
-    inner += `<div class="card-stat-label">${agent.statLabel}</div>`;
-  } else {
-    inner += `<div class="card-cell">${agent.cell}</div>`;
-    inner += `<div class="card-title">${agent.title}</div>`;
-  }
-
+  inner += `<div class="card-cell">${agent.cell}</div>`;
+  inner += `<div class="card-title">${agent.title}</div>`;
+  if (agent.sublabel) inner += `<div class="card-sublabel">${agent.sublabel}</div>`;
   card.innerHTML = inner;
   card.addEventListener('click', () => openModal(agent));
   grid.appendChild(card);
 });
 
-// ── FILTERS ────────────────────────────────────────
+// ── RENDER SUPPORT STRIP ──────────────────────────
+const supportGrid = document.getElementById('support-grid');
+SUPPORT.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.id = s.id;
+  card.style.background = s.bg;
+  card.style.color = s.text;
+  let inner = svgPattern(s.pattern, s.text);
+  inner += `<div class="card-cell">${s.cell}</div>`;
+  inner += `<div class="card-stat">${s.stat}</div>`;
+  inner += `<div class="card-title">${s.title}</div>`;
+  inner += `<div class="card-stat-label">${s.statLabel}</div>`;
+  card.innerHTML = inner;
+  card.addEventListener('click', () => openModal(s));
+  supportGrid.appendChild(card);
+});
+
+// ── FILTERS (agent atlas only) ────────────────────
 document.querySelectorAll('.filters button').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    document.querySelectorAll('.card').forEach(card => {
-      if (f === 'all' || card.dataset.filter === f) {
-        card.classList.remove('dim');
-      } else {
-        card.classList.add('dim');
-      }
+    document.querySelectorAll('#grid .card').forEach(card => {
+      if (f === 'all' || card.dataset.filter === f) card.classList.remove('dim');
+      else card.classList.add('dim');
     });
   });
 });
 
-// ── MODAL ──────────────────────────────────────────
+// ── MODAL ─────────────────────────────────────────
 const overlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
 const modalClose = document.getElementById('modal-close');
 
-function openModal(agent) {
-  let html = `<div class="color-bar" style="background:${agent.bg === '#0a0a0a' ? '#333' : agent.bg}"></div>`;
-  html += `<h2>${agent.title}</h2>`;
-  html += `<div class="modal-cell">${agent.cell}${agent.type === 'agent' ? ' Cell' : ''}</div>`;
-  html += `<div class="modal-desc">${agent.desc}</div>`;
-
-  html += `<div class="modal-section"><h3>Defense-Aerospace Perspective</h3><div class="modal-desc">${agent.defense}</div></div>`;
-
-  if (agent.relevance) {
+function openModal(item) {
+  let html = `<div class="color-bar" style="background:${item.bg === '#0a0a0a' ? '#333' : item.bg}"></div>`;
+  html += `<h2>${item.title}</h2>`;
+  html += `<div class="modal-cell">${item.cell}</div>`;
+  html += `<div class="modal-desc">${item.desc}</div>`;
+  html += `<div class="modal-section"><h3>Defense-Aerospace Perspective</h3><div class="modal-desc">${item.defense}</div></div>`;
+  if (item.relevance) {
     html += `<div class="modal-section"><h3>Relevance Matrix</h3>`;
     PROJECT_TYPES.forEach(pt => {
-      const val = agent.relevance[pt];
+      const val = item.relevance[pt];
       const cls = val === 'HIGH' ? 'high' : val === 'MED' ? 'med' : 'low';
       html += `<div class="relevance-row"><span>${PROJECT_LABELS[pt]}</span><span class="val ${cls}">${val}</span></div>`;
     });
     html += `</div>`;
   }
-
   modalContent.innerHTML = html;
   overlay.classList.add('open');
 }
 
 modalClose.addEventListener('click', () => overlay.classList.remove('open'));
-overlay.addEventListener('click', (e) => {
-  if (e.target === overlay) overlay.classList.remove('open');
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') overlay.classList.remove('open');
-});
+overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.classList.remove('open'); });
 </script>
 </body>
 </html>
