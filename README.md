@@ -23,6 +23,9 @@ A peer swarm of **15 scientific-domain agents** that review defense-aerospace pr
 
 ---
 
+<img width="1349" height="955" alt="Screenshot 2026-04-14 at 8 24 44 AM" src="https://github.com/user-attachments/assets/696a90c6-e9c5-4ed5-851b-f1c5070654f7" />
+
+
 ## Genesis — Where This Came From
 
 ### The Spark
