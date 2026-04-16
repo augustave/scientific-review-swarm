@@ -48,6 +48,29 @@ body{
   margin-left:8px;
   vertical-align:middle;
 }
+.site-header .repo-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,0.2);
+  font-size:0.58rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  color:rgba(255,255,255,0.7);
+  text-decoration:none;
+  transition:all 0.18s;
+  font-family:inherit;
+}
+.site-header .repo-link:hover{
+  border-color:#fff;
+  color:#fff;
+  background:rgba(255,255,255,0.05);
+}
+.site-header .repo-link .arrow{font-size:0.75rem;opacity:0.6}
+.site-header .repo-link:hover .arrow{opacity:1}
 .site-header .thesis{
   font-size:0.65rem;
   color:rgba(255,255,255,0.45);
@@ -413,6 +436,10 @@ body{
 <header class="site-header">
   <div>
     <h1>Scientific Review Swarm <span class="badge">v1.0.0</span></h1>
+    <a class="repo-link" href="https://github.com/augustave/scientific-review-swarm" target="_blank" rel="noopener">
+      <span>github.com / augustave / scientific-review-swarm</span>
+      <span class="arrow">↗</span>
+    </a>
   </div>
   <div class="thesis">Peer swarm of 15 scientific-domain agents. Gate-integrated review for defense-aerospace programs.</div>
 </header>
