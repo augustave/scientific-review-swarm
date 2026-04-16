@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scientific Review Swarm</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="Peer swarm of 15 scientific-domain agents. Gate-integrated review for defense-aerospace programs.">
+<meta property="og:title" content="Scientific Review Swarm v1.0.0">
+<meta property="og:description" content="Peer swarm of 15 scientific-domain agents. Gate-integrated review for defense-aerospace programs.">
+<meta property="og:image" content="https://augustave.github.io/scientific-review-swarm/og.png">
+<meta property="og:url" content="https://augustave.github.io/scientific-review-swarm/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scientific Review Swarm v1.0.0">
+<meta name="twitter:description" content="15 scientific-domain agents reviewing defense-aerospace programs.">
+<meta name="twitter:image" content="https://augustave.github.io/scientific-review-swarm/og.png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -165,6 +176,109 @@ body{
   border-top:1px solid currentColor;
   padding-top:10px;
   opacity:0.5;
+}
+
+/* ── TOP FINDINGS STRIP ──────────────────────────── */
+.findings-section{
+  max-width:var(--max);
+  margin:48px auto 0;
+  padding:0 24px;
+}
+.findings-divider{
+  padding:18px 0 14px;
+  border-top:1px solid rgba(255,255,255,0.12);
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:14px;
+}
+.findings-divider .divider-hint{
+  font-size:0.55rem;
+  color:rgba(255,255,255,0.35);
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+}
+.findings-list{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.finding-row{
+  display:grid;
+  grid-template-columns:80px 60px 1fr auto;
+  align-items:center;
+  gap:16px;
+  padding:14px 18px;
+  background:#0f0f0f;
+  cursor:pointer;
+  transition:background 0.18s;
+}
+.finding-row:hover{background:#161616}
+.finding-row .sev{
+  font-size:0.5rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.16em;
+  padding:4px 6px;
+  text-align:center;
+  color:#fff;
+}
+.finding-row .sev.critical{background:#D50000}
+.finding-row .sev.high{background:#FF6D00;color:#0a0a0a}
+.finding-row .gate{
+  font-size:0.55rem;
+  font-weight:800;
+  letter-spacing:0.12em;
+  color:rgba(255,255,255,0.4);
+  border:1px solid rgba(255,255,255,0.18);
+  padding:3px 6px;
+  text-align:center;
+}
+.finding-row .title{
+  font-size:0.82rem;
+  font-weight:700;
+  letter-spacing:0.04em;
+  line-height:1.35;
+}
+.finding-row .title .summary{
+  display:block;
+  margin-top:3px;
+  font-size:0.62rem;
+  font-weight:400;
+  color:rgba(255,255,255,0.5);
+  letter-spacing:0.06em;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+.finding-row .conv{
+  font-size:0.58rem;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.6);
+  text-align:right;
+  white-space:nowrap;
+}
+.finding-row .conv strong{color:#00C853;font-weight:800}
+@media(max-width:720px){
+  .finding-row{grid-template-columns:70px 1fr;gap:10px;padding:12px}
+  .finding-row .gate,.finding-row .conv{grid-column:2;text-align:left}
+  .finding-row .gate{justify-self:start}
+}
+
+/* Active filter indicator */
+.filter-status{
+  max-width:var(--max);
+  margin:0 auto 10px;
+  padding:0 24px;
+  font-size:0.55rem;
+  color:rgba(255,255,255,0.45);
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  min-height:14px;
 }
 
 /* ── ATLAS DIVIDER (section header + filters) ────── */
@@ -402,6 +516,123 @@ body{
 .modal-close:hover{opacity:1}
 .modal .color-bar{height:4px;margin-bottom:20px}
 
+/* Convergence SVG block */
+.modal .convergence-svg{
+  width:100%;
+  height:180px;
+  display:block;
+  margin:6px 0 12px;
+  background:#0a0a0a;
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+/* Credibility dots */
+.modal .cred-row{
+  display:grid;
+  grid-template-columns:120px 120px 1fr;
+  gap:12px;
+  align-items:center;
+  padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:0.68rem;
+}
+.modal .cred-row .factor{font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:0.62rem}
+.modal .cred-row .dots{display:flex;gap:3px}
+.modal .cred-row .dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,0.12);
+}
+.modal .cred-row .dot.on{background:#00C853}
+.modal .cred-row .dot.half{
+  background:linear-gradient(90deg,#00C853 50%,rgba(255,255,255,0.12) 50%);
+}
+.modal .cred-row .note{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:0.68rem;color:rgba(255,255,255,0.55);line-height:1.4;
+}
+.modal .cred-row.total{border-top:2px solid rgba(255,255,255,0.2);margin-top:4px;padding-top:10px}
+.modal .cred-row.total .factor{color:#fff}
+
+/* Risk table */
+.modal .risk-row{
+  display:grid;
+  grid-template-columns:50px 70px 1fr 40px;
+  gap:10px;
+  align-items:center;
+  padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:0.68rem;
+}
+.modal .risk-row .rid{font-weight:800;color:rgba(255,255,255,0.5);letter-spacing:0.08em}
+.modal .risk-row .sev{
+  font-size:0.5rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;
+  padding:3px 5px;text-align:center;color:#fff;
+}
+.modal .risk-row .sev.Critical{background:#D50000}
+.modal .risk-row .sev.High{background:#FF6D00;color:#0a0a0a}
+.modal .risk-row .sev.Medium{background:rgba(255,255,255,0.14);color:rgba(255,255,255,0.8)}
+.modal .risk-row .rtitle{
+  font-size:0.72rem;line-height:1.35;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+.modal .risk-row .rgate{
+  font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.5);
+  text-align:center;letter-spacing:0.08em;
+}
+
+/* Links block */
+.modal .links-block a{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;margin:4px 0;
+  background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);
+  font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.7);text-decoration:none;
+  transition:all 0.18s;
+}
+.modal .links-block a:hover{border-color:#fff;color:#fff;background:#181818}
+.modal .links-block a .arr{font-size:0.8rem;opacity:0.5}
+.modal .links-block a:hover .arr{opacity:1}
+
+/* Crosswalk (gate → agent) */
+.modal .xw-row{
+  display:grid;
+  grid-template-columns:50px 1fr;
+  gap:14px;
+  align-items:flex-start;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:0.7rem;
+}
+.modal .xw-row .gate-tag{
+  font-weight:800;font-size:0.75rem;letter-spacing:0.08em;
+  background:rgba(255,255,255,0.08);color:#fff;
+  padding:4px 6px;text-align:center;
+}
+.modal .xw-row .agents{display:flex;flex-wrap:wrap;gap:6px}
+.modal .xw-row .agents a{
+  font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  padding:4px 8px;background:rgba(255,255,255,0.06);
+  color:rgba(255,255,255,0.8);text-decoration:none;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:all 0.15s;
+}
+.modal .xw-row .agents a:hover{background:#fff;color:#0a0a0a}
+
+/* Prev / next nav inside modal */
+.modal-nav{
+  display:flex;justify-content:space-between;
+  margin-top:24px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.modal-nav button{
+  background:transparent;border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.7);font-family:inherit;
+  font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;
+  padding:8px 14px;cursor:pointer;transition:all 0.18s;
+}
+.modal-nav button:hover:not(:disabled){background:#fff;color:#0a0a0a;border-color:#fff}
+.modal-nav button:disabled{opacity:0.25;cursor:not-allowed}
+
 /* ── FOOTER ──────────────────────────────────────── */
 .site-footer{
   max-width:var(--max);
@@ -449,6 +680,19 @@ body{
   <div class="hero-grid" id="hero-grid"></div>
 </section>
 
+<!-- ── TOP FINDINGS STRIP ────────────────────── -->
+<section class="findings-section">
+  <div class="findings-divider">
+    <div class="divider-left">
+      <div class="divider-index">01.5 · Evidence</div>
+      <div class="divider-label">Top Findings</div>
+      <div class="divider-count">MINI-D pilot · consolidated from 70 raw findings</div>
+    </div>
+    <div class="divider-hint">Click row for recommendation ↗</div>
+  </div>
+  <div class="findings-list" id="findings-list"></div>
+</section>
+
 <!-- ── ATLAS DIVIDER ──────────────────────────── -->
 <section class="atlas-divider">
   <div class="divider-left">
@@ -456,15 +700,11 @@ body{
     <div class="divider-label">Agent Atlas</div>
     <div class="divider-count">15 domains · 3 cells · wave-launched</div>
   </div>
-  <div class="filters" role="tablist">
-    <button class="active" data-filter="all">All</button>
-    <button data-filter="physical">Physical Sciences</button>
-    <button data-filter="cross">Cross-Cutting</button>
-    <button data-filter="life">Life Sciences</button>
-  </div>
+  <div class="filters" role="tablist" id="filter-bar"></div>
 </section>
 
 <!-- ── AGENT ATLAS GRID ───────────────────────── -->
+<div class="filter-status" id="filter-status"></div>
 <div class="grid" id="grid"></div>
 
 <!-- ── SUPPORT STRIP ──────────────────────────── -->
@@ -478,9 +718,9 @@ body{
 <div class="grid" id="support-grid"></div>
 
 <!-- ── MODAL ──────────────────────────────────── -->
-<div class="modal-overlay" id="modal-overlay">
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal-wrap">
-    <button class="modal-close" id="modal-close">&times;</button>
+    <button class="modal-close" id="modal-close" aria-label="Close dialog">&times;</button>
     <div class="modal" id="modal-content"></div>
   </div>
 </div>
@@ -637,6 +877,82 @@ const SUPPORT = [
 const PROJECT_TYPES = ['drone','aircraft','radar','racing','docs','twin'];
 const PROJECT_LABELS = {drone:'Drone Swarm',aircraft:'Aircraft Design',radar:'Radar/Sensing',racing:'Racing Drone',docs:'Defense Docs',twin:'Digital Twin'};
 
+// ── TOP FINDINGS (5) — source: consolidated review lines 28–63 ──
+const TOP_FINDINGS = [
+  { id:'F1', severity:'critical', gate:'G4', title:'ProofConsole displays fabricated data as verification',
+    agents:['scicom','data'],
+    summary:'Hardcoded Math.random() and toy formulas presented alongside "99.8% Global Integrity" and paper citations.',
+    fix:'Remove, label "ILLUSTRATIVE / CONCEPTUAL", or wire panels to actual multi-seed simulation runs.' },
+  { id:'F2', severity:'critical', gate:'G3·G4', title:'Zero uncertainty quantification on any metric',
+    agents:['engsim','data','ml','clinical'], convergence:4,
+    summary:'All metrics are single-point estimates. No CI, no variance, no error bars. BatchRunner uses one seed.',
+    fix:'Track running mean/variance. Run 20–30 seeds per point. Report CIs. Use binomial tests for pass/fail.' },
+  { id:'F3', severity:'critical', gate:'G4', title:'CoV runner: 3 seeds labeled "95% Confidence (N=5 Seeds)"',
+    agents:['scicom','data','clinical'], convergence:3,
+    summary:'3 seeds with majority vote, labeled "N=5 Seeds" — both numbers wrong. No real CI computed.',
+    fix:'Fix label. Increase to 20+ seeds. Replace majority vote with binomial test. Log all seed outcomes.' },
+  { id:'F4', severity:'critical', gate:'G1', title:'Uniform drift sampled as Gaussian — underestimates tails 3.5×',
+    agents:['engsim','ml'], convergence:2,
+    summary:'`(rng()-0.5)*sigma` is uniform (stdev ≈ 0.289·σ), not Gaussian. Named driftSigma. Underestimates worst case.',
+    fix:'Implement Box-Muller transform on existing mulberry32 RNG. Replace uniform sample with gaussian.' },
+  { id:'F5', severity:'high', gate:'G4', title:'Claim ID namespace collision (C-00x vs Cx)',
+    agents:['scicom'],
+    summary:'Docs use C-001..C-009, code uses C1..C7, no mapping. Auditors cannot trace claims. No artifact hashes.',
+    fix:'Unify registry. Add evidence_ref, test_run_id, artifact_hash (SHA-256) fields.' },
+];
+
+// ── 20-row RISK REGISTER — source: MINI-D_risk_register_scientific_v1.md ──
+const RISKS = [
+  { id:'R-01', sev:'Critical', gate:'G4', title:'ProofConsole fabricated verification data', rec:'Remove, label illustrative, or wire to real engine output' },
+  { id:'R-02', sev:'Critical', gate:'G3·G4', title:'Zero uncertainty quantification', rec:'Ensemble runs (N≥20), track variance, report CIs' },
+  { id:'R-03', sev:'Critical', gate:'G4', title:'CoV "95% N=5" label is false', rec:'Fix label, increase seeds to 20+, use binomial test' },
+  { id:'R-04', sev:'Critical', gate:'G1', title:'Uniform drift ≠ Gaussian (3.5× underestimate)', rec:'Implement Box-Muller Gaussian RNG' },
+  { id:'R-05', sev:'High', gate:'G4', title:'Claim ID namespace collision', rec:'Unify claim registry, add cross-references' },
+  { id:'R-06', sev:'High', gate:'G4', title:'No artifact hashes on evidence', rec:'Add SHA-256 hashing, structured evidence fields' },
+  { id:'R-07', sev:'High', gate:'G3', title:'E3_SIZE missing from golden fixtures', rec:'Add E3 to generate_golden.ts SCENARIOS' },
+  { id:'R-08', sev:'High', gate:'G1', title:'Forward Euler without stability analysis', rec:'Velocity-Verlet or RK2, cap impulse, test dt convergence' },
+  { id:'R-09', sev:'High', gate:'G3', title:'Single-seed phase diagram (N=1)', rec:'Run 10+ seeds per point, color by pass probability' },
+  { id:'R-10', sev:'Medium', gate:'G1', title:'No safety case for autonomous dispatch', rec:'Build minimal GSN safety case skeleton' },
+  { id:'R-11', sev:'Medium', gate:'G3', title:'E4 confounds 3 variables', rec:'Factorial design (2³ = 8 runs)' },
+  { id:'R-12', sev:'Medium', gate:'G1', title:'Wind model: no turbulence/gusts', rec:'Add Dryden or Perlin noise turbulence' },
+  { id:'R-13', sev:'Medium', gate:'G1', title:'Centralized dispatch bottleneck', rec:'Implement stigmergy/ACO/quorum sensing' },
+  { id:'R-14', sev:'Medium', gate:'G3', title:'No pre-registration / protocol locking', rec:'Add protocol_lock.json with SHA-256' },
+  { id:'R-15', sev:'Medium', gate:'G1', title:'Hardcoded timeSinceFix=5.0', rec:'Track lastFixTime per drone' },
+  { id:'R-16', sev:'Medium', gate:'G4', title:'No evidence hierarchy in claims', rec:'Add Evidence Type column' },
+  { id:'R-17', sev:'Medium', gate:'G1', title:'No swarm-level safe state', rec:'Define collective safety threshold' },
+  { id:'R-18', sev:'Medium', gate:'G1', title:'SpatialHash hardcoded 800×600', rec:'Add resize() method' },
+  { id:'R-19', sev:'Medium', gate:'G1', title:'Landing lerp is frame-rate dependent', rec:'Replace with 1-exp(-rate·dt) decay' },
+  { id:'R-20', sev:'Medium', gate:'G3', title:'No operator confidence display', rec:'Surface dispatch diagnostics panel' },
+];
+
+// ── NASA-STD-7009 credibility — source: consolidated review lines 157–167 ──
+const CREDIBILITY = [
+  { factor:'Verification', level:2, max:5, note:'Golden-run regression, curve contracts. No solution verification.' },
+  { factor:'Validation', level:0.5, max:5, note:'No real-world data comparison.' },
+  { factor:'Input Pedigree', level:1, max:5, note:'Plausible profile classes, no measured data traceability.' },
+  { factor:'Results UQ', level:0, max:5, note:'No UQ. Single-seed batch runs. No CIs.' },
+  { factor:'Model Robustness', level:1.5, max:5, note:'Multiple experiment modes, no formal robustness envelope.' },
+  { factor:'Use History', level:0, max:5, note:'No documented operational use.' },
+];
+const CREDIBILITY_OVERALL = { level:'1–2 / 5', note:'Suitable for concept exploration. Not for requirements verification.' };
+
+// ── Gate → Agent crosswalk ──
+const GATE_AGENTS = {
+  G1: ['physics','engsim','materials','ml','bioinfo'],
+  G2: ['materials','lab'],
+  G3: ['engsim','data','clinical','ml','health'],
+  G4: ['scicom','data','lab'],
+};
+const GATE_LABELS = { G1:'Architecture', G2:'Fabrication', G3:'Validation', G4:'Claims' };
+
+// ── Pilot modal extra links ──
+const PILOT_LINKS = [
+  { label:'Full review report', url:'https://github.com/augustave/scientific-review-swarm/blob/main/reviews/MINI-D_consolidated_scientific_review_v1.md' },
+  { label:'Risk register (20 rows)', url:'https://github.com/augustave/scientific-review-swarm/blob/main/reviews/MINI-D_risk_register_scientific_v1.md' },
+  { label:'Pilot fix commit · a7ea7f2', url:'https://github.com/augustave/MINI-D/commit/a7ea7f2' },
+  { label:'MINI-D repository', url:'https://github.com/augustave/MINI-D' },
+];
+
 // ── SVG PATTERNS ──────────────────────────────────
 function svgPattern(type, textColor) {
   const c = textColor === '#0a0a0a' ? '0,0,0' : '255,255,255';
@@ -688,6 +1004,14 @@ function svgPattern(type, textColor) {
   }
 }
 
+// ── UNIFIED ITEM INDEX (for deep links) ──────────
+const ITEMS = new Map();
+HERO.forEach(h => ITEMS.set(h.id, {...h, kind:'hero'}));
+AGENTS.forEach(a => ITEMS.set(a.id, {...a, kind:'agent'}));
+SUPPORT.forEach(s => ITEMS.set(s.id, {...s, kind:'support'}));
+TOP_FINDINGS.forEach(f => ITEMS.set(f.id, {...f, kind:'finding'}));
+const AGENT_BY_ID = Object.fromEntries(AGENTS.map(a => [a.id, a]));
+
 // ── RENDER HERO ───────────────────────────────────
 const heroGrid = document.getElementById('hero-grid');
 HERO.forEach(h => {
@@ -696,6 +1020,9 @@ HERO.forEach(h => {
   card.dataset.id = h.id;
   card.style.background = h.bg;
   card.style.color = h.text;
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', `${h.role}: ${h.title}`);
   let inner = svgPattern(h.pattern, h.text);
   inner += `<div class="hero-role">${h.role}</div>`;
   inner += `<div class="hero-rank">${h.rank}</div>`;
@@ -704,8 +1031,32 @@ HERO.forEach(h => {
   inner += `<div class="hero-title">${h.title}</div>`;
   inner += `<div class="hero-meta">${h.meta}</div>`;
   card.innerHTML = inner;
-  card.addEventListener('click', () => openModal(h));
+  card.addEventListener('click', () => openById(h.id));
+  card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openById(h.id); } });
   heroGrid.appendChild(card);
+});
+
+// ── RENDER TOP FINDINGS ──────────────────────────
+const findingsList = document.getElementById('findings-list');
+TOP_FINDINGS.forEach(f => {
+  const row = document.createElement('div');
+  row.className = 'finding-row';
+  row.dataset.id = f.id;
+  row.setAttribute('role', 'button');
+  row.setAttribute('tabindex', '0');
+  row.setAttribute('aria-label', `${f.severity} finding: ${f.title}`);
+  const convTxt = f.convergence
+    ? `<strong>${f.convergence}</strong> AGENTS ▲`
+    : (f.agents.length > 1 ? `${f.agents.length} AGENTS ▲` : '');
+  row.innerHTML = `
+    <span class="sev ${f.severity}">${f.severity}</span>
+    <span class="gate">${f.gate}</span>
+    <div class="title">${f.title}<span class="summary">${f.summary}</span></div>
+    <span class="conv">${convTxt}</span>
+  `;
+  row.addEventListener('click', () => openById(f.id));
+  row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openById(f.id); } });
+  findingsList.appendChild(row);
 });
 
 // ── RENDER AGENT ATLAS ────────────────────────────
@@ -717,12 +1068,16 @@ AGENTS.forEach(agent => {
   card.dataset.id = agent.id;
   card.style.background = agent.bg;
   card.style.color = agent.text;
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', `${agent.cell}: ${agent.title}`);
   let inner = svgPattern(agent.pattern, agent.text);
   inner += `<div class="card-cell">${agent.cell}</div>`;
   inner += `<div class="card-title">${agent.title}</div>`;
   if (agent.sublabel) inner += `<div class="card-sublabel">${agent.sublabel}</div>`;
   card.innerHTML = inner;
-  card.addEventListener('click', () => openModal(agent));
+  card.addEventListener('click', () => openById(agent.id));
+  card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openById(agent.id); } });
   grid.appendChild(card);
 });
 
@@ -734,56 +1089,272 @@ SUPPORT.forEach(s => {
   card.dataset.id = s.id;
   card.style.background = s.bg;
   card.style.color = s.text;
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', `${s.cell}: ${s.title}`);
   let inner = svgPattern(s.pattern, s.text);
   inner += `<div class="card-cell">${s.cell}</div>`;
   inner += `<div class="card-stat">${s.stat}</div>`;
   inner += `<div class="card-title">${s.title}</div>`;
   inner += `<div class="card-stat-label">${s.statLabel}</div>`;
   card.innerHTML = inner;
-  card.addEventListener('click', () => openModal(s));
+  card.addEventListener('click', () => openById(s.id));
+  card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openById(s.id); } });
   supportGrid.appendChild(card);
 });
 
-// ── FILTERS (agent atlas only) ────────────────────
-document.querySelectorAll('.filters button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('#grid .card').forEach(card => {
-      if (f === 'all' || card.dataset.filter === f) card.classList.remove('dim');
-      else card.classList.add('dim');
-    });
-  });
+// ── FILTERS (dynamic with counts) ────────────────
+const CELL_LABELS = [
+  { key:'all', label:'All' },
+  { key:'physical', label:'Physical Sciences' },
+  { key:'cross', label:'Cross-Cutting' },
+  { key:'life', label:'Life Sciences' },
+];
+const filterBar = document.getElementById('filter-bar');
+const filterStatus = document.getElementById('filter-status');
+CELL_LABELS.forEach(c => {
+  const count = c.key === 'all' ? AGENTS.length : AGENTS.filter(a => a.filter === c.key).length;
+  const btn = document.createElement('button');
+  btn.dataset.filter = c.key;
+  btn.setAttribute('role', 'tab');
+  btn.setAttribute('aria-label', `Filter ${c.label}, ${count} agents`);
+  btn.innerHTML = `${c.label} <span style="opacity:0.45;margin-left:4px">· ${count}</span>`;
+  if (c.key === 'all') btn.classList.add('active');
+  btn.addEventListener('click', () => applyFilter(c.key));
+  filterBar.appendChild(btn);
 });
+
+function applyFilter(f) {
+  document.querySelectorAll('#filter-bar button').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  document.querySelectorAll('#grid .card').forEach(card => {
+    if (f === 'all' || card.dataset.filter === f) card.classList.remove('dim');
+    else card.classList.add('dim');
+  });
+  if (f === 'all') {
+    filterStatus.textContent = '';
+  } else {
+    const visible = AGENTS.filter(a => a.filter === f).length;
+    const label = CELL_LABELS.find(c => c.key === f).label;
+    filterStatus.textContent = `Showing ${visible} of ${AGENTS.length} · ${label} cell`;
+  }
+  currentFilter = f;
+}
+let currentFilter = 'all';
 
 // ── MODAL ─────────────────────────────────────────
 const overlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
 const modalClose = document.getElementById('modal-close');
+let lastFocusedEl = null;
+let navContext = null; // { list: [...items], index: n }
 
-function openModal(item) {
-  let html = `<div class="color-bar" style="background:${item.bg === '#0a0a0a' ? '#333' : item.bg}"></div>`;
-  html += `<h2>${item.title}</h2>`;
-  html += `<div class="modal-cell">${item.cell}</div>`;
-  html += `<div class="modal-desc">${item.desc}</div>`;
-  html += `<div class="modal-section"><h3>Defense-Aerospace Perspective</h3><div class="modal-desc">${item.defense}</div></div>`;
-  if (item.relevance) {
-    html += `<div class="modal-section"><h3>Relevance Matrix</h3>`;
-    PROJECT_TYPES.forEach(pt => {
-      const val = item.relevance[pt];
-      const cls = val === 'HIGH' ? 'high' : val === 'MED' ? 'med' : 'low';
-      html += `<div class="relevance-row"><span>${PROJECT_LABELS[pt]}</span><span class="val ${cls}">${val}</span></div>`;
-    });
-    html += `</div>`;
+function agentById(id) { return AGENT_BY_ID[id]; }
+
+function severityDotScale(level, max) {
+  let html = '<span class="dots">';
+  for (let i = 1; i <= max; i++) {
+    let cls = 'dot';
+    if (level >= i) cls += ' on';
+    else if (level >= i - 0.5) cls += ' half';
+    html += `<span class="${cls}"></span>`;
   }
-  modalContent.innerHTML = html;
-  overlay.classList.add('open');
+  return html + '</span>';
 }
 
-modalClose.addEventListener('click', () => overlay.classList.remove('open'));
-overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.classList.remove('open'); });
+function renderConvergenceSvg() {
+  // 4-node star with center "R-02: Zero UQ"
+  const nodes = [
+    { id:'engsim', label:'Eng Sim', x:60,  y:40 },
+    { id:'data',   label:'Data',    x:340, y:40 },
+    { id:'ml',     label:'ML',      x:60,  y:140 },
+    { id:'clinical', label:'Clinical', x:340, y:140 },
+  ];
+  const cx = 200, cy = 90;
+  let svg = `<svg class="convergence-svg" viewBox="0 0 400 180" preserveAspectRatio="xMidYMid meet">`;
+  // edges
+  nodes.forEach(n => {
+    svg += `<line x1="${n.x}" y1="${n.y}" x2="${cx}" y2="${cy}" stroke="rgba(0,200,83,0.45)" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+  });
+  // center node
+  svg += `<circle cx="${cx}" cy="${cy}" r="36" fill="#D50000" stroke="#fff" stroke-width="2"/>`;
+  svg += `<text x="${cx}" y="${cy - 2}" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" font-family="monospace" letter-spacing="1">R-02</text>`;
+  svg += `<text x="${cx}" y="${cy + 12}" text-anchor="middle" font-size="7" fill="#fff" font-family="monospace" letter-spacing="1">ZERO UQ</text>`;
+  // outer nodes
+  nodes.forEach(n => {
+    svg += `<circle cx="${n.x}" cy="${n.y}" r="20" fill="#0a0a0a" stroke="#00C853" stroke-width="1.5"/>`;
+    svg += `<text x="${n.x}" y="${n.y + 3}" text-anchor="middle" font-size="8" font-weight="700" fill="#fff" font-family="monospace" letter-spacing="0.5">${n.label.toUpperCase()}</text>`;
+  });
+  svg += `</svg>`;
+  return svg;
+}
+
+function openById(id, opts = {}) {
+  const item = ITEMS.get(id);
+  if (!item) return;
+
+  // Update nav context
+  if (item.kind === 'agent') {
+    const visibleAgents = AGENTS.filter(a => currentFilter === 'all' || a.filter === currentFilter);
+    const idx = visibleAgents.findIndex(a => a.id === id);
+    navContext = idx >= 0 ? { list: visibleAgents, index: idx } : null;
+  } else if (item.kind === 'finding') {
+    const idx = TOP_FINDINGS.findIndex(f => f.id === id);
+    navContext = { list: TOP_FINDINGS, index: idx };
+  } else {
+    navContext = null;
+  }
+
+  // Update URL hash (without pushing to history)
+  if (!opts.fromHash) {
+    history.replaceState(null, '', `#id=${id}`);
+  }
+
+  // Build modal content
+  let html = '';
+  const accent = item.bg && item.bg !== '#0a0a0a' ? item.bg : (item.severity === 'critical' ? '#D50000' : item.severity === 'high' ? '#FF6D00' : '#333');
+  html += `<div class="color-bar" style="background:${accent}"></div>`;
+  html += `<h2>${item.title}</h2>`;
+
+  if (item.kind === 'finding') {
+    html += `<div class="modal-cell">${item.severity.toUpperCase()} · ${item.gate} · ${item.id}</div>`;
+    html += `<div class="modal-desc">${item.summary}</div>`;
+    if (item.agents && item.agents.length) {
+      html += `<div class="modal-section"><h3>Flagged by</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">`;
+      item.agents.forEach(aid => {
+        const a = agentById(aid);
+        if (a) html += `<a href="#id=${aid}" onclick="event.preventDefault();openById('${aid}')" style="font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 8px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85);text-decoration:none;border:1px solid rgba(255,255,255,0.1)">${a.title}</a>`;
+      });
+      html += `</div>`;
+      if (item.convergence) html += `<div style="margin-top:10px;font-size:0.65rem;color:#00C853;font-weight:800;letter-spacing:0.12em">▲ INDEPENDENT CROSS-AGENT CONVERGENCE (${item.convergence} AGENTS)</div>`;
+      html += `</div>`;
+    }
+    html += `<div class="modal-section"><h3>Recommendation</h3><div class="modal-desc">${item.fix}</div></div>`;
+  } else {
+    html += `<div class="modal-cell">${item.cell}</div>`;
+    html += `<div class="modal-desc">${item.desc || ''}</div>`;
+    if (item.defense) html += `<div class="modal-section"><h3>Defense-Aerospace Perspective</h3><div class="modal-desc">${item.defense}</div></div>`;
+
+    // Agent relevance matrix (unchanged)
+    if (item.relevance) {
+      html += `<div class="modal-section"><h3>Relevance Matrix</h3>`;
+      PROJECT_TYPES.forEach(pt => {
+        const val = item.relevance[pt];
+        const cls = val === 'HIGH' ? 'high' : val === 'MED' ? 'med' : 'low';
+        html += `<div class="relevance-row"><span>${PROJECT_LABELS[pt]}</span><span class="val ${cls}">${val}</span></div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Pilot card extras: convergence + credibility + links
+    if (item.id === 'pilot') {
+      html += `<div class="modal-section"><h3>Cross-agent convergence · R-02</h3>`;
+      html += renderConvergenceSvg();
+      html += `<div style="font-size:0.65rem;color:rgba(255,255,255,0.5);line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Four independent agents converged on "zero uncertainty quantification" as the single largest systemic gap — the strongest credibility signal in the pilot.</div>`;
+      html += `</div>`;
+
+      html += `<div class="modal-section"><h3>NASA-STD-7009 Credibility</h3>`;
+      CREDIBILITY.forEach(c => {
+        html += `<div class="cred-row"><span class="factor">${c.factor}</span>${severityDotScale(c.level, c.max)}<span class="note">${c.note}</span></div>`;
+      });
+      html += `<div class="cred-row total"><span class="factor">Overall</span><span style="font-weight:800;font-size:0.8rem;letter-spacing:0.05em">${CREDIBILITY_OVERALL.level}</span><span class="note">${CREDIBILITY_OVERALL.note}</span></div>`;
+      html += `</div>`;
+
+      html += `<div class="modal-section links-block"><h3>Links</h3>`;
+      PILOT_LINKS.forEach(l => {
+        html += `<a href="${l.url}" target="_blank" rel="noopener"><span>${l.label}</span><span class="arr">↗</span></a>`;
+      });
+      html += `</div>`;
+    }
+
+    // Gate card: crosswalk
+    if (item.id === 'gates') {
+      html += `<div class="modal-section"><h3>Gate → Agent crosswalk</h3>`;
+      Object.keys(GATE_AGENTS).forEach(g => {
+        const agents = GATE_AGENTS[g];
+        html += `<div class="xw-row"><span class="gate-tag">${g}</span><div class="agents">`;
+        html += `<span style="font-size:0.55rem;opacity:0.5;align-self:center;margin-right:6px;letter-spacing:0.12em;text-transform:uppercase">${GATE_LABELS[g]} ·</span>`;
+        if (agents.length === 0) html += `<span style="font-size:0.6rem;opacity:0.4">—</span>`;
+        agents.forEach(aid => {
+          const a = agentById(aid);
+          if (a) html += `<a href="#id=${aid}" onclick="event.preventDefault();openById('${aid}')">${a.title}</a>`;
+        });
+        html += `</div></div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Risk Register card: full 20-row table
+    if (item.id === 'risk') {
+      html += `<div class="modal-section"><h3>Risk register (${RISKS.length})</h3>`;
+      RISKS.forEach(r => {
+        html += `<div class="risk-row" title="${r.rec.replace(/"/g, '&quot;')}"><span class="rid">${r.id}</span><span class="sev ${r.sev}">${r.sev}</span><span class="rtitle">${r.title}</span><span class="rgate">${r.gate}</span></div>`;
+      });
+      html += `<div style="font-size:0.55rem;color:rgba(255,255,255,0.35);margin-top:10px;letter-spacing:0.12em;text-transform:uppercase">Hover a row to see the recommendation</div>`;
+      html += `</div>`;
+    }
+  }
+
+  // Prev/next nav
+  if (navContext) {
+    const prevDisabled = navContext.index === 0 ? 'disabled' : '';
+    const nextDisabled = navContext.index === navContext.list.length - 1 ? 'disabled' : '';
+    html += `<div class="modal-nav"><button id="modal-prev" ${prevDisabled}>← prev</button><button id="modal-next" ${nextDisabled}>next →</button></div>`;
+  }
+
+  modalContent.innerHTML = html;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+
+  // Wire prev/next
+  const prevBtn = document.getElementById('modal-prev');
+  const nextBtn = document.getElementById('modal-next');
+  if (prevBtn) prevBtn.addEventListener('click', navPrev);
+  if (nextBtn) nextBtn.addEventListener('click', navNext);
+
+  // Focus management
+  if (!opts.fromNav) {
+    lastFocusedEl = document.activeElement;
+  }
+  setTimeout(() => modalClose.focus(), 50);
+}
+
+function navPrev() {
+  if (!navContext || navContext.index === 0) return;
+  navContext.index--;
+  openById(navContext.list[navContext.index].id, { fromNav: true });
+}
+function navNext() {
+  if (!navContext || navContext.index >= navContext.list.length - 1) return;
+  navContext.index++;
+  openById(navContext.list[navContext.index].id, { fromNav: true });
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  if (location.hash) history.replaceState(null, '', location.pathname);
+  if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
+  navContext = null;
+}
+
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => {
+  if (!overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft') navPrev();
+  if (e.key === 'ArrowRight') navNext();
+});
+
+// ── HASH ROUTING ─────────────────────────────────
+function openFromHash() {
+  const m = location.hash.match(/^#id=([\w-]+)/);
+  if (m && ITEMS.has(m[1])) {
+    openById(m[1], { fromHash: true });
+  }
+}
+window.addEventListener('hashchange', openFromHash);
+openFromHash();
 </script>
 </body>
 </html>
