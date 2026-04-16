@@ -388,8 +388,16 @@ body{
   opacity:0.18;
   transition:opacity 0.3s;
   pointer-events:none;
+  z-index:1;
 }
 .card:hover svg.bg-pattern{opacity:0.4}
+.card canvas.bg-gradient{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  display:block;
+  pointer-events:none;
+  z-index:0;
+}
 .card-cell{
   position:relative;z-index:1;
   font-size:0.48rem;
@@ -759,31 +767,31 @@ const HERO = [
 // ── AGENT ATLAS (15) ──────────────────────────────
 const AGENTS = [
   // Physical Sciences (5)
-  { id:'materials', filter:'physical', bg:'#FFD600', text:'#0a0a0a', pattern:'lattice',
+  { id:'materials', filter:'physical', gradient:['#FFE9B0','#FFD880','#F5D8A6'], bg:'#FFD880', text:'#252221', pattern:'lattice',
     title:'Materials Science', cell:'Physical Sciences',
     sublabel:'durability / thermal / fatigue',
     desc:'Reviews composites, thermal protection, radar-absorbing materials, fatigue life, coatings, and environmental degradation for defense-aerospace applications.',
     defense:'Airframe composites, thermal protection systems, RAM coatings, fatigue life methodology, corrosion resistance, RCS-driven material tradeoffs.',
     relevance:{drone:'HIGH',aircraft:'HIGH',radar:'MED',racing:'HIGH',docs:'LOW',twin:'MED'} },
-  { id:'physics', filter:'physical', bg:'#FAFAFA', text:'#0a0a0a', pattern:'orbital',
+  { id:'physics', filter:'physical', gradient:['#7FB0E0','#4A8FD6','#2E6FBF'], bg:'#4A8FD6', text:'#EDE6E2', pattern:'orbital',
     title:'Physics & Astronomy', cell:'Physical Sciences',
     sublabel:'mechanics / EM / orbit',
     desc:'Reviews orbital mechanics, RF/radar physics, propulsion thermodynamics, aerodynamics, atmospheric effects, and electromagnetic propagation.',
     defense:'RF link budgets, orbital perturbations, propulsion thermodynamics, aerodynamic validation, atmospheric propagation models.',
     relevance:{drone:'MED',aircraft:'HIGH',radar:'HIGH',racing:'MED',docs:'LOW',twin:'HIGH'} },
-  { id:'engsim', filter:'physical', bg:'#00C853', text:'#fff', pattern:'mesh',
+  { id:'engsim', filter:'physical', gradient:['#2E6FBF','#1E4A96','#13285C'], bg:'#1E4A96', text:'#EDE6E2', pattern:'mesh',
     title:'Engineering Simulation', cell:'Physical Sciences',
     sublabel:'credibility / UQ / V&V',
     desc:'Reviews FEA, CFD, multi-physics simulation, V&V per NASA-STD-7009, uncertainty quantification, mesh convergence, and simulation credibility.',
     defense:'Simulation credibility assessment, mesh convergence studies, uncertainty quantification, physics fidelity, V&V methodology per NASA-STD-7009.',
     relevance:{drone:'HIGH',aircraft:'HIGH',radar:'MED',racing:'HIGH',docs:'LOW',twin:'HIGH'} },
-  { id:'data', filter:'physical', bg:'#2962FF', text:'#fff', pattern:'scatter',
+  { id:'data', filter:'physical', gradient:['#4A8FD6','#2E6FBF','#0D2F80'], bg:'#2E6FBF', text:'#EDE6E2', pattern:'scatter',
     title:'Data Analysis', cell:'Physical Sciences',
     sublabel:'telemetry / anomaly / statistics',
     desc:'Reviews statistical methods, time series analysis, sensor fusion, anomaly detection, uncertainty quantification, data visualization, and data provenance.',
     defense:'Telemetry analysis, sensor fusion uncertainty, statistical process control, anomaly detection pipelines, decision-support visualization.',
     relevance:{drone:'HIGH',aircraft:'MED',radar:'HIGH',racing:'MED',docs:'MED',twin:'HIGH'} },
-  { id:'lab', filter:'physical', bg:'#00BCD4', text:'#0a0a0a', pattern:'circuit',
+  { id:'lab', filter:'physical', gradient:['#E5CBE8','#CDB5FF','#D8BFE8'], bg:'#CDB5FF', text:'#252221', pattern:'circuit',
     title:'Lab Automation', cell:'Physical Sciences',
     sublabel:'HIL / calibration / provenance',
     desc:'Reviews HIL test automation, instrument integration, calibration management, data provenance, CI/CD for hardware, and evidence chain integrity.',
@@ -791,19 +799,19 @@ const AGENTS = [
     relevance:{drone:'MED',aircraft:'HIGH',radar:'MED',racing:'MED',docs:'LOW',twin:'MED'} },
 
   // Cross-Cutting (3)
-  { id:'ml', filter:'cross', bg:'#D50000', text:'#fff', pattern:'neural',
+  { id:'ml', filter:'cross', gradient:['#FF2B53','#E53550','#C72034'], bg:'#E53550', text:'#EDE6E2', pattern:'neural',
     title:'Machine Learning', cell:'Cross-Cutting',
     sublabel:'autonomy / robustness / deployment',
     desc:'Reviews autonomy pipelines, perception systems, reinforcement learning, on-edge inference, adversarial robustness, sim-to-real transfer, and model V&V.',
     defense:'Autonomy/perception ML, RL for mission planning, SWaP-constrained inference, adversarial robustness, sim-to-real gap analysis.',
     relevance:{drone:'HIGH',aircraft:'MED',radar:'MED',racing:'HIGH',docs:'LOW',twin:'HIGH'} },
-  { id:'chem', filter:'cross', bg:'#AA00FF', text:'#fff', pattern:'molecule',
+  { id:'chem', filter:'cross', gradient:['#E86A1C','#C88420','#AA7600'], bg:'#C88420', text:'#EDE6E2', pattern:'molecule',
     title:'Cheminformatics', cell:'Cross-Cutting',
     sublabel:'chemistry / battery / corrosion',
     desc:'Reviews propellant and battery chemistry, energy density tradeoffs, corrosion chemistry, chemical sensor design, CBRN detection, and molecular property prediction.',
     defense:'Battery thermal runaway tradeoffs, propellant chemistry, corrosion-resistant coatings, CBRN detection algorithms, molecular property prediction.',
     relevance:{drone:'LOW',aircraft:'MED',radar:'LOW',racing:'MED',docs:'LOW',twin:'LOW'} },
-  { id:'scicom', filter:'cross', bg:'#E91E63', text:'#fff', pattern:'document',
+  { id:'scicom', filter:'cross', gradient:['#FFB89E','#F2A79A','#D99C9A'], bg:'#F2A79A', text:'#252221', pattern:'document',
     title:'Scientific Communication', cell:'Cross-Cutting',
     sublabel:'claims / evidence / traceability',
     desc:'Reviews claims traceability, evidence quality, technical writing clarity, report standards, peer review readiness, and overclaiming detection.',
@@ -811,43 +819,43 @@ const AGENTS = [
     relevance:{drone:'MED',aircraft:'MED',radar:'MED',racing:'MED',docs:'HIGH',twin:'MED'} },
 
   // Life Sciences (7)
-  { id:'bioinfo', filter:'life', bg:'#00C853', text:'#fff', pattern:'helix',
+  { id:'bioinfo', filter:'life', gradient:['#F5FBF8','#C7E5DD','#AAD6CC'], bg:'#C7E5DD', text:'#252221', pattern:'helix',
     title:'Bioinformatics', cell:'Life Sciences',
     sublabel:'swarm logic / adaptation / bio-inspired systems',
     desc:'Reviews bio-inspired swarm algorithms (ACO, PSO, GA), evolutionary optimization, biological sensing paradigms, network biology applied to distributed systems.',
     defense:'Ant colony optimization for route planning, particle swarm optimization, genetic algorithms for design search, stigmergy, quorum sensing, Reynolds boids.',
     relevance:{drone:'HIGH',aircraft:'LOW',radar:'LOW',racing:'MED',docs:'LOW',twin:'MED'} },
-  { id:'proteo', filter:'life', bg:'#2962FF', text:'#fff', pattern:'peaks',
+  { id:'proteo', filter:'life', gradient:['#0067E2','#1A56C8','#0D2F80'], bg:'#1A56C8', text:'#EDE6E2', pattern:'peaks',
     title:'Proteomics', cell:'Life Sciences',
     sublabel:'trace detection / spectral sensitivity',
     desc:'Reviews trace detection techniques, spectral analysis, peptide identification applied to ISR payload sensors, spectral signature analysis, and contamination detection.',
     defense:'Trace-level chemical detection for ISR, spectral pipeline validation against reference libraries, contamination detection, materials characterization.',
     relevance:{drone:'LOW',aircraft:'LOW',radar:'HIGH',racing:'LOW',docs:'LOW',twin:'LOW'} },
-  { id:'clinical', filter:'life', bg:'#00BCD4', text:'#0a0a0a', pattern:'fork',
+  { id:'clinical', filter:'life', gradient:['#D8BFE8','#CDB5FF','#EBC9D6'], bg:'#CDB5FF', text:'#252221', pattern:'fork',
     title:'Clinical Research', cell:'Life Sciences',
     sublabel:'test design / confounds / power',
     desc:'Reviews rigorous test protocol design, evidence hierarchies, statistical power, confounding variable control, and systematic bias avoidance. Clinical trial methodology for machines.',
     defense:'Statistically powered test campaigns, controlled confounding variables, pre-registered protocols, intention-to-treat analysis, evidence hierarchy for operational testing.',
     relevance:{drone:'MED',aircraft:'MED',radar:'LOW',racing:'LOW',docs:'MED',twin:'MED'} },
-  { id:'health', filter:'life', bg:'#E91E63', text:'#fff', pattern:'heartcircuit',
+  { id:'health', filter:'life', gradient:['#4A1D6E','#8A1E5C','#C7144A'], bg:'#8A1E5C', text:'#EDE6E2', pattern:'heartcircuit',
     title:'Healthcare AI', cell:'Life Sciences',
     sublabel:'safety / HITL / drift',
     desc:'Reviews autonomy safety cases, model V&V, bias detection in training data, human-machine trust calibration, and runtime safety monitoring.',
     defense:'Safety cases (GSN/FMEA), model drift detection, human-override mechanisms, runtime safety monitoring, trust calibration for autonomous systems.',
     relevance:{drone:'MED',aircraft:'MED',radar:'LOW',racing:'MED',docs:'LOW',twin:'MED'} },
-  { id:'medimg', filter:'life', bg:'#FF6D00', text:'#0a0a0a', pattern:'scan',
+  { id:'medimg', filter:'life', gradient:['#C88420','#AA7600','#A8891C'], bg:'#AA7600', text:'#EDE6E2', pattern:'scan',
     title:'Medical Imaging', cell:'Life Sciences',
     sublabel:'segmentation / EO-IR / SAR',
     desc:'Reviews image processing pipelines, segmentation, registration, anomaly detection applied to EO/IR processing, SAR imagery, target detection, and damage assessment.',
     defense:'EO/IR processing pipelines, SAR image analysis, target segmentation FP/FN rates, multi-sensor registration, damage assessment, materials inspection.',
     relevance:{drone:'MED',aircraft:'LOW',radar:'HIGH',racing:'MED',docs:'LOW',twin:'MED'} },
-  { id:'omics', filter:'life', bg:'#FF6D00', text:'#0a0a0a', pattern:'venn',
+  { id:'omics', filter:'life', gradient:['#FFE9B0','#FFD880','#C88420'], bg:'#FFD880', text:'#252221', pattern:'venn',
     title:'Multi-omics', cell:'Life Sciences',
     sublabel:'fusion / emergence / topology',
     desc:'Reviews multi-domain data integration, pathway analysis, network biology, emergent behavior in complex systems applied to multi-domain defense architectures.',
     defense:'Multi-domain RF+EO/IR+SIGINT integration, emergent swarm behavior modeling, network topology analysis, phase transition detection, feedback loop characterization.',
     relevance:{drone:'HIGH',aircraft:'MED',radar:'MED',racing:'LOW',docs:'LOW',twin:'HIGH'} },
-  { id:'proteng', filter:'life', bg:'#AA00FF', text:'#fff', pattern:'ribbon',
+  { id:'proteng', filter:'life', gradient:['#302218','#2B0010','#180008'], bg:'#2B0010', text:'#EDE6E2', pattern:'ribbon',
     title:'Protein Engineering', cell:'Life Sciences',
     sublabel:'optimization / modular interaction',
     desc:'Reviews directed evolution optimization, structure-function relationships, modular architecture analysis, and bio-mimetic structural design.',
@@ -1004,6 +1012,101 @@ function svgPattern(type, textColor) {
   }
 }
 
+// ── WEBGL PAINTERLY GRADIENT ───────────────────────
+// Renders a 3-stop vertical gradient with value-noise grain. One WebGL
+// context per card; released via WEBGL_lose_context after first draw —
+// the canvas retains pixels, the GL context slot is freed for future.
+const GRADIENT_VS = `
+attribute vec2 a_pos;
+varying vec2 v_uv;
+void main(){
+  v_uv = a_pos * 0.5 + 0.5;
+  gl_Position = vec4(a_pos, 0.0, 1.0);
+}`;
+const GRADIENT_FS = `
+precision mediump float;
+varying vec2 v_uv;
+uniform vec3 u_c1;
+uniform vec3 u_c2;
+uniform vec3 u_c3;
+uniform float u_seed;
+float hash(vec2 p){return fract(sin(dot(p, vec2(12.9898,78.233))+u_seed)*43758.5453);}
+float valueNoise(vec2 p){
+  vec2 i = floor(p); vec2 f = fract(p);
+  f = f*f*(3.0-2.0*f);
+  return mix(
+    mix(hash(i), hash(i+vec2(1.0,0.0)), f.x),
+    mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), f.x),
+    f.y
+  );
+}
+void main(){
+  float y = 1.0 - v_uv.y; // flip so c1 is top
+  vec3 col = y < 0.5 ? mix(u_c1, u_c2, smoothstep(0.0, 1.0, y*2.0))
+                     : mix(u_c2, u_c3, smoothstep(0.0, 1.0, (y-0.5)*2.0));
+  // Two octaves of noise: coarse atmospheric + fine grain
+  float coarse = valueNoise(v_uv * vec2(4.0, 8.0)) * 0.08 - 0.04;
+  float grain  = (hash(v_uv * 800.0) - 0.5) * 0.05;
+  col += vec3(coarse + grain);
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+function hexToRgb(h){
+  return [
+    parseInt(h.slice(1,3),16)/255,
+    parseInt(h.slice(3,5),16)/255,
+    parseInt(h.slice(5,7),16)/255,
+  ];
+}
+
+function paintGradient(canvas, colors, seed){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const rect = canvas.getBoundingClientRect();
+  const w = Math.max(1, Math.round(rect.width  * dpr));
+  const h = Math.max(1, Math.round(rect.height * dpr));
+  if (w < 2 || h < 2) return false; // not laid out yet
+  canvas.width  = w;
+  canvas.height = h;
+  const gl = canvas.getContext('webgl', { antialias: true, preserveDrawingBuffer: true });
+  if (!gl) return false;
+  const mk = (t, s) => {
+    const sh = gl.createShader(t);
+    gl.shaderSource(sh, s);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+      console.warn('shader compile:', gl.getShaderInfoLog(sh));
+      return null;
+    }
+    return sh;
+  };
+  const vs = mk(gl.VERTEX_SHADER, GRADIENT_VS);
+  const fs = mk(gl.FRAGMENT_SHADER, GRADIENT_FS);
+  if (!vs || !fs) return false;
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.warn('program link:', gl.getProgramInfoLog(prog));
+    return false;
+  }
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'a_pos');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform3fv(gl.getUniformLocation(prog, 'u_c1'), hexToRgb(colors[0]));
+  gl.uniform3fv(gl.getUniformLocation(prog, 'u_c2'), hexToRgb(colors[1]));
+  gl.uniform3fv(gl.getUniformLocation(prog, 'u_c3'), hexToRgb(colors[2]));
+  gl.uniform1f(gl.getUniformLocation(prog, 'u_seed'), seed || 0);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  gl.flush();
+  // Keep the GL context alive — preserveDrawingBuffer + live context keeps
+  // pixels visible without needing to redraw on every compositor frame.
+  return true;
+}
+
 // ── UNIFIED ITEM INDEX (for deep links) ──────────
 const ITEMS = new Map();
 HERO.forEach(h => ITEMS.set(h.id, {...h, kind:'hero'}));
@@ -1061,17 +1164,23 @@ TOP_FINDINGS.forEach(f => {
 
 // ── RENDER AGENT ATLAS ────────────────────────────
 const grid = document.getElementById('grid');
-AGENTS.forEach(agent => {
+const pendingGradients = [];
+AGENTS.forEach((agent, idx) => {
   const card = document.createElement('div');
   card.className = 'card';
   card.dataset.filter = agent.filter;
   card.dataset.id = agent.id;
-  card.style.background = agent.bg;
+  // CSS fallback gradient (applies if WebGL fails or before canvas paints)
+  card.style.background = agent.gradient
+    ? `linear-gradient(to bottom, ${agent.gradient[0]} 0%, ${agent.gradient[1]} 50%, ${agent.gradient[2]} 100%)`
+    : agent.bg;
   card.style.color = agent.text;
   card.setAttribute('role', 'button');
   card.setAttribute('tabindex', '0');
   card.setAttribute('aria-label', `${agent.cell}: ${agent.title}`);
-  let inner = svgPattern(agent.pattern, agent.text);
+  let inner = '';
+  if (agent.gradient) inner += `<canvas class="bg-gradient" aria-hidden="true"></canvas>`;
+  inner += svgPattern(agent.pattern, agent.text);
   inner += `<div class="card-cell">${agent.cell}</div>`;
   inner += `<div class="card-title">${agent.title}</div>`;
   if (agent.sublabel) inner += `<div class="card-sublabel">${agent.sublabel}</div>`;
@@ -1079,6 +1188,31 @@ AGENTS.forEach(agent => {
   card.addEventListener('click', () => openById(agent.id));
   card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openById(agent.id); } });
   grid.appendChild(card);
+  if (agent.gradient) {
+    const cvs = card.querySelector('canvas.bg-gradient');
+    pendingGradients.push({ cvs, colors: agent.gradient, seed: idx * 37.3 });
+  }
+});
+
+// Paint all gradients after layout settles
+requestAnimationFrame(() => {
+  pendingGradients.forEach(({ cvs, colors, seed }) => {
+    if (!paintGradient(cvs, colors, seed)) {
+      // WebGL failed — CSS gradient fallback is already set on the card
+      cvs.remove();
+    }
+  });
+});
+
+// Re-paint on resize (debounced) so DPR / layout changes stay sharp
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    pendingGradients.forEach(({ cvs, colors, seed }) => {
+      if (cvs.isConnected) paintGradient(cvs, colors, seed);
+    });
+  }, 180);
 });
 
 // ── RENDER SUPPORT STRIP ──────────────────────────
